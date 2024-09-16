@@ -1,15 +1,35 @@
 name: Deploy to Firebase Hosting on merge
+
 on:
   push:
     branches:
-      - main
+      - main  # Trigger deployment on push to the main branch
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - run: firebase deploy
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Optionally, specify a repository token if needed
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.18.0'  # Use the Node.js version required by your project
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+        # Ensure the build script is correctly defined in your package.json
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CHARIGAMES }}
