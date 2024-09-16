@@ -1,0 +1,13 @@
+{
+    "name": "2048_Game",
+
+    "version": "1.0.0",
+    "scripts": {
+      "build": "echo 'No build step needed for static HTML/CSS'",
+      "deploy": "firebase deploy"
+    },
+    "devDependencies": {
+      "firebase-tools": "^11.0.0"
+    }
+  }
+  
