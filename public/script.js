@@ -6,10 +6,49 @@ const gameBoard = document.getElementById("game-board")
 const grid = new Grid(gameBoard)
 grid.randomEmptyCell().tile = new Tile(gameBoard)
 grid.randomEmptyCell().tile = new Tile(gameBoard)
+
 setupInput()
+setupTouch()
 
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true })
+}
+
+function setupTouch() {
+  let startX, startY, endX, endY
+
+  gameBoard.addEventListener("touchstart", e => {
+    const touch = e.touches[0]
+    startX = touch.clientX
+    startY = touch.clientY
+  })
+
+  gameBoard.addEventListener("touchend", e => {
+    const touch = e.changedTouches[0]
+    endX = touch.clientX
+    endY = touch.clientY
+
+    handleSwipe()
+  })
+
+  function handleSwipe() {
+    const deltaX = endX - startX
+    const deltaY = endY - startY
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) {
+        handleInput({ key: "ArrowRight" })
+      } else {
+        handleInput({ key: "ArrowLeft" })
+      }
+    } else {
+      if (deltaY > 0) {
+        handleInput({ key: "ArrowDown" })
+      } else {
+        handleInput({ key: "ArrowUp" })
+      }
+    }
+  }
 }
 
 async function handleInput(e) {
