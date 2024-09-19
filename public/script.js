@@ -2,6 +2,8 @@ import Grid from "./Grid.js"
 import Tile from "./Tile.js"
 
 const gameBoard = document.getElementById("game-board")
+const scoreDisplay = document.getElementById("score")
+let score = 0; // Initialize score
 
 const grid = new Grid(gameBoard)
 grid.randomEmptyCell().tile = new Tile(gameBoard)
@@ -135,6 +137,8 @@ function slideTiles(cells) {
           promises.push(cell.tile.waitForTransition())
           if (lastValidCell.tile != null) {
             lastValidCell.mergeTile = cell.tile
+            score += lastValidCell.tile.value; // Update score
+            updateScoreDisplay(); // Update score display
           } else {
             lastValidCell.tile = cell.tile
           }
@@ -144,6 +148,10 @@ function slideTiles(cells) {
       return promises
     })
   )
+}
+
+function updateScoreDisplay() {
+  scoreDisplay.textContent = `Score: ${score}`; // Update score display
 }
 
 function canMoveUp() {

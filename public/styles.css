@@ -57,6 +57,25 @@ body {
 .tile[data-value="1024"] { background-color: #edc53f; }
 .tile[data-value="2048"] { background-color: #edc22e; }
 
+#game-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align the content */
+  margin-top: 20px; /* Add some margin at the top */
+}
+
+#score-container {
+  text-align: center; /* Center the text */
+  margin-bottom: 20px; /* Space between score and game board */
+  font-family: Arial, sans-serif; /* Change font if desired */
+}
+
+#score {
+  font-size: 2rem; /* Adjust size as needed */
+  color: white; /* Change color if desired */
+  margin: 0; /* Remove default margin */
+}
+
 @keyframes show {
   0% {
     opacity: 0.5;
