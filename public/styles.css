@@ -65,13 +65,16 @@ body {
 }
 
 #score-container {
-  text-align: center; /* Center the text */
+  display: flex; /* Use flexbox for two-column layout */
+  justify-content: space-between; /* Space out items */
+  width: 100%; /* Full width */
+  max-width: 400px; /* Limit max size */
   margin-bottom: 20px; /* Space between score and game board */
-  font-family: Arial, sans-serif; /* Change font if desired */
+  font-family: Arial, sans-serif; /* Font style */
 }
 
-#score {
-  font-size: 2rem; /* Adjust size as needed */
+#heigh-score, #score {
+  font-size: 1.5rem; /* Adjust size */
   color: white; /* Change color if desired */
   margin: 0; /* Remove default margin */
 }

@@ -3,7 +3,9 @@ import Tile from "./Tile.js"
 
 const gameBoard = document.getElementById("game-board")
 const scoreDisplay = document.getElementById("score")
+const highScoreDisplay = document.getElementById("heigh-score") // Get high score display element
 let score = 0; // Initialize score
+let highScore = localStorage.getItem('highScore') || 0; // Retrieve high score from local storage
 
 const grid = new Grid(gameBoard)
 grid.randomEmptyCell().tile = new Tile(gameBoard)
@@ -11,6 +13,8 @@ grid.randomEmptyCell().tile = new Tile(gameBoard)
 
 setupInput()
 setupTouch()
+updateScoreDisplay(); // Initial score display
+updateHighScoreDisplay(); // Initial high score display
 
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true })
@@ -139,6 +143,7 @@ function slideTiles(cells) {
             lastValidCell.mergeTile = cell.tile
             score += lastValidCell.tile.value; // Update score
             updateScoreDisplay(); // Update score display
+            updateHighScore(); // Check and update high score
           } else {
             lastValidCell.tile = cell.tile
           }
@@ -152,6 +157,18 @@ function slideTiles(cells) {
 
 function updateScoreDisplay() {
   scoreDisplay.textContent = `Score: ${score}`; // Update score display
+}
+
+function updateHighScore() {
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('highScore', highScore); // Store new high score in local storage
+    updateHighScoreDisplay();
+  }
+}
+
+function updateHighScoreDisplay() {
+  highScoreDisplay.textContent = `High Score: ${highScore}`; // Update high score display
 }
 
 function canMoveUp() {
