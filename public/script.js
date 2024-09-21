@@ -171,6 +171,11 @@ function updateHighScoreDisplay() {
   highScoreDisplay.textContent = `High Score: ${highScore}`; // Update high score display
 }
 
+function getScore() {
+  return score;
+}
+
+
 function canMoveUp() {
   return canMove(grid.cellsByColumn)
 }
